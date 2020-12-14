@@ -4,4 +4,5 @@
  - TypeScript
  - Eslint
  - SCSS
- - ReactBootstrap
+
+ Configured local images loading, global styles and local font.

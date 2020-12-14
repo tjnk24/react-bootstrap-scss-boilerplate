@@ -1,13 +1,14 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import logo from './logo.png';
 
 import './style.scss';
 
 const App = () => (
   <div className="App">
+    <img src={logo} alt="logo" />
     Hello boilerplate!
     <div>Nested div</div>
-    <Button variant="primary">button</Button>
+    <button type="button">test</button>
   </div>
 );
 
