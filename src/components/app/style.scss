@@ -1,7 +1,19 @@
-.App {
-  color: red;
+.app {
+  color: #f00;
 
   div {
-    color: blue;
+    color: #00f;
   }
+
+  &--disabled {
+    color: #008000;
+
+    div {
+      color: #808080;
+    }
+  }
+}
+
+.mixin-class {
+  font-size: 30px;
 }

@@ -10,7 +10,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack",
-    "lint": "eslint ./src/**"
+    "lint": "eslint ./src/**/*.ts & eslint ./src/**/*.tsx & stylelint ./src/**/*.scss"
   },
   "dependencies": {
     "react": "^16.13.1",
@@ -37,6 +37,8 @@
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.0",
     "style-loader": "^1.2.1",
+    "stylelint": "^13.8.0",
+    "stylelint-config-sass-guidelines": "^7.1.0",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.5",
     "webpack": "^4.43.0",
