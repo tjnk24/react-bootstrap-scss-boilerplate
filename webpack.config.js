@@ -13,6 +13,10 @@ const cssLoaders = [
     loader: 'css-loader',
     options: {
       sourceMap: development,
+      modules: {
+        mode: 'local',
+        localIdentName: '[local]--[hash:base64:5]',
+      },
     },
   },
   {

@@ -1,10 +1,10 @@
 import React from 'react';
 import logo from './logo.png';
 
-import './style.scss';
+import style from './style.scss';
 
 const App = () => (
-  <div className="App">
+  <div className={style.App}>
     <img src={logo} alt="logo" />
     Hello boilerplate!
     <div>Nested div</div>
