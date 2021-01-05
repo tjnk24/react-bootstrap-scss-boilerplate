@@ -4,6 +4,7 @@ module.exports = {
         "es2020": true
     },
     "extends": [
+        "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
         "airbnb"
     ],
@@ -20,8 +21,11 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        'indent': ['error', 2],
         'import/no-unresolved': 'off',
         'import/extensions': 'off',
+        'react/prop-types': 'off',
+        'react/jsx-props-no-spreading': 'off',
         'react/jsx-filename-extension': [
             'error',
             {
