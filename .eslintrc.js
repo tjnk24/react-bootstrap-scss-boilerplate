@@ -22,6 +22,7 @@ module.exports = {
     ],
     "rules": {
         'indent': ['error', 2],
+        'no-unused-vars': 'warn',
         'import/no-unresolved': 'off',
         'import/extensions': 'off',
         'react/prop-types': 'off',

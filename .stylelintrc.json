@@ -1,6 +1,8 @@
 {
   "extends": "stylelint-config-sass-guidelines",
   "rules": {
-    "max-nesting-depth": null
+    "max-nesting-depth": null,
+    "indentation": 2,
+    "selector-max-id": null
   }
 }
