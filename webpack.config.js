@@ -28,13 +28,11 @@ const cssLoaders = [
 ];
 
 module.exports = {
-  entry: [
-    './src/index.tsx',
-  ],
+  entry: ['./src/index.tsx'],
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'build'),
-    publicPath: '',
+    publicPath: '/',
   },
   watch: true,
   devServer: {
@@ -73,9 +71,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader',
-        ],
+        use: ['file-loader'],
       },
     ],
   },
