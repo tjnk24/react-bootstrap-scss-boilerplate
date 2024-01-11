@@ -1,7 +1,7 @@
 {
-  "name": "react-boilerplate",
+  "name": "react-bootstrap-scss-boilerplate",
   "version": "1.0.0",
-  "description": "react-boilerplate",
+  "description": "react-bootstrap-scss-boilerplate",
   "main": "src/index.js",
   "license": "MIT",
   "private": true,

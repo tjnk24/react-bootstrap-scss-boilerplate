@@ -1,4 +1,4 @@
-# ReactBoilerplate
+# react-bootstrap-scss boilerplate
  - React
  - Webpack
  - TypeScript
