@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Button} from 'react-bootstrap';
 
-import logo from '../../images/logo.png';
+import logo from '__images/logo.png';
 
 import style from './style.scss';
 
@@ -14,7 +14,9 @@ const App: FC = () => (
 
             <div>Nested div</div>
 
-            <Button className={style['margin-button']}>test</Button>
+            <Button className={style['margin-button']}>
+                test
+            </Button>
         </div>
     </div>
 );

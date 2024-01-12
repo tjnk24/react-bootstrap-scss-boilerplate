@@ -24,19 +24,12 @@
             "__components/*": ["./src/components/*"],
             "__pages/*": ["./src/pages/*"],
             "__fonts/*": ["./src/fonts/*"],
-            "__api/*": ["./static/api/*"],
-            "__utils/*": ["./static/utils/*"],
+            "__api/*": ["./src/api/*"],
+            "__utils/*": ["./src/utils/*"],
+            "__images/*": ["./src/images/*"],
         },
         "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
     },
-    // "include": [
-    //     "*.js",
-    //     "*.*.js",
-    //     "*.ts",
-    //     "src/",
-    //     "src/typings/*.d.ts",
-    //     "node_modules/@types",
-    // ],
     "compileOnSave": false,
     "exclude": ["public", "node_modules", "build"]
 }
