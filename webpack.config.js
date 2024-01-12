@@ -1,94 +1,157 @@
-const path = require('path');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const EslintWebpackPlugin = require('eslint-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const {DefinePlugin} = require('webpack');
+
+const alias = require('./configFiles/aliases.js');
+const globals = require('./configFiles/globals.js');
 
 const development = process.env.NODE_ENV !== 'production';
 
+const plugins = [
+    new DefinePlugin(globals),
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+        patterns: [
+            {from: 'src/images', to: 'images'},
+            {from: 'public/favicon.ico', to: 'images'},
+        ],
+    }),
+    new HtmlWebpackPlugin({
+        template: './src/index.html',
+    }),
+    new MiniCssExtractPlugin({
+        chunkFilename: '[name].css',
+        filename: '[name].css',
+        ignoreOrder: true,
+    }),
+];
+
+if (development) {
+    plugins.push(
+        new ForkTsCheckerWebpackPlugin({
+            async: true,
+            typescript: {
+                diagnosticOptions: {
+                    semantic: true,
+                    syntactic: true,
+                },
+            },
+        }),
+        new EslintWebpackPlugin({
+            files: 'src/**/*.{ts,tsx,js,jsx}',
+            emitError: true,
+            failOnError: false,
+            emitWarning: true,
+            failOnWarning: false,
+            cache: true,
+        }),
+    );
+}
+
 const cssLoaders = [
-  {
-    loader: development ? 'style-loader' : MiniCssExtractPlugin.loader,
-  },
-  {
-    loader: 'css-loader',
-    options: {
-      sourceMap: development,
-      modules: {
-        mode: 'local',
-        localIdentName: '[local]--[hash:base64:5]',
-      },
+    {
+        loader: development ? 'style-loader' : MiniCssExtractPlugin.loader,
     },
-  },
-  {
-    loader: 'sass-loader',
-    options: {
-      sourceMap: development,
+    {
+        loader: 'css-loader',
+        options: {
+            sourceMap: development,
+            modules: {
+                mode: 'local',
+                localIdentName: '[local]--[hash:base64:5]',
+            },
+        },
     },
-  },
+    {
+        loader: 'sass-loader',
+        options: {
+            sourceMap: development,
+        },
+    },
 ];
 
 module.exports = {
-  entry: ['./src/index.tsx'],
-  output: {
-    filename: '[name].[hash].js',
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
-  },
-  watch: true,
-  devServer: {
-    port: 8080,
-    contentBase: path.resolve(__dirname, 'src'),
-    historyApiFallback: true,
-  },
-  mode: development ? 'development' : 'production',
-  devtool: 'source-map',
-  module: {
-    rules: [
-      {
-        test: /\.ts(x?)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader',
-          },
-        ],
-      },
-      {
-        test: /\.(s*)css$/,
-        use: cssLoaders,
-      },
-      {
-        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader'],
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
-    alias: {
-      '@components': path.resolve(__dirname, 'src', 'components'),
+    devtool: development && 'source-map',
+    devServer: {
+        static: {
+            directory: 'build',
+        },
+        liveReload: false,
+        open: true,
+        port: process.env.PORT,
+        hot: true,
+        historyApiFallback: true,
+        client: {
+            logging: 'error',
+            overlay: false,
+        },
+        devMiddleware: {
+            writeToDisk: true,
+        },
     },
-  },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-    }),
-    new MiniCssExtractPlugin({
-      filename: development ? '[name].css' : '[name].[hash].css',
-      chunkFilename: '[id].css',
-    }),
-  ],
+    entry: {
+        app: ['./src/index.tsx'],
+    },
+    mode: development ? 'development' : 'production',
+    output: {
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].chunk.js',
+        path: path.resolve(__dirname, 'build'),
+        publicPath: '',
+        pathinfo: false,
+    },
+    resolve: {
+        modules: [
+            'node_modules',
+            path.resolve(__dirname, 'src'),
+        ],
+        extensions: ['.js', '.ts', '.tsx', '.json'],
+        alias,
+        fallback: {
+            crypto: false,
+        },
+    },
+    module: {
+        rules: [
+            {
+                test: /\.m?js/,
+                resolve: {
+                    fullySpecified: false,
+                },
+            },
+            {
+                test: /\.ts(x?)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'ts-loader',
+                    },
+                ],
+            },
+            {
+                test: /\.(s*)css$/,
+                use: cssLoaders,
+            },
+            {
+                test: /\.(jpe?g|png|gif)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[name][ext]',
+                },
+            },
+            {
+                test: /\.(ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]',
+                },
+            },
+        ],
+    },
+    plugins,
 };

@@ -1,16 +1,42 @@
 {
     "compilerOptions": {
+        "target": "es5",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "noImplicitReturns": false,
+        "removeComments": false,
+        "resolveJsonModule": true,
+        "strictNullChecks": false,
+        "skipLibCheck": true,
+        "lib": ["dom", "es2018"],
+        "strict": true,
         "outDir": "./build/",
         "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es6",
+        "module": "ESNext",
+        "moduleResolution": "node",
         "jsx": "react",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "baseUrl": ".",
         "paths": {
-            "@components/*": ["src/components/*"],
-        }
-    }
+            "__components/*": ["./src/components/*"],
+            "__pages/*": ["./src/pages/*"],
+            "__fonts/*": ["./src/fonts/*"],
+            "__api/*": ["./static/api/*"],
+            "__utils/*": ["./static/utils/*"],
+        },
+        "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
+    },
+    // "include": [
+    //     "*.js",
+    //     "*.*.js",
+    //     "*.ts",
+    //     "src/",
+    //     "src/typings/*.d.ts",
+    //     "node_modules/@types",
+    // ],
+    "compileOnSave": false,
+    "exclude": ["public", "node_modules", "build"]
 }

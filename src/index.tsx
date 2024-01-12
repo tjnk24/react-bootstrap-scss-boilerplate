@@ -1,6 +1,7 @@
 import './global.scss';
 import React from 'react';
-import { render } from 'react-dom';
-import App from '@components/app';
+import {createRoot} from 'react-dom/client';
 
-render(<App />, document.getElementById('root'));
+import App from '__components/app';
+
+createRoot(document.getElementById('root')).render(<App/>);
