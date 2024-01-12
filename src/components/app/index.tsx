@@ -1,24 +1,41 @@
-import React, {FC} from 'react';
-import {Button} from 'react-bootstrap';
+import React, {FC, useState} from 'react';
+import {Button, Image} from 'react-bootstrap';
 
 import logo from '__images/logo.png';
 
 import style from './style.scss';
 
-const App: FC = () => (
-    <div>
+const App: FC = () => {
+    const [counter, setCounter] = useState(0);
+
+    const onMinusClick = () => setCounter(counter - 1);
+
+    const onPlusClick = () => setCounter(counter + 1);
+
+    return (
         <div className={style.app}>
-            <img src={logo} alt="logo"/>
+            <Image
+                src={logo}
+                alt="logo"
+            />
 
-            Hello boilerplate!
+            <h1>
+                React-Bootstrap Boilerplate
+            </h1>
 
-            <div>Nested div</div>
+            <div className={style.counterContainer}>
+                <Button onClick={onMinusClick}>
+                    -
+                </Button>
 
-            <Button className={style['margin-button']}>
-                test
-            </Button>
+                <strong>{counter}</strong>
+
+                <Button onClick={onPlusClick}>
+                    +
+                </Button>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default App;
