@@ -1,9 +1,13 @@
-import React, {FC, useState} from 'react';
-import {Button, Image} from 'react-bootstrap';
+import {FC, useState} from 'react';
+import {
+    Button,
+    Image,
+    Badge,
+} from 'react-bootstrap';
 
 import logo from '__images/logo.png';
 
-import style from './style.scss';
+import style from './style.module.scss';
 
 const App: FC = () => {
     const [counter, setCounter] = useState(0);
@@ -18,6 +22,10 @@ const App: FC = () => {
                 src={logo}
                 alt="logo"
             />
+
+            <Badge>
+                sdfsdf
+            </Badge>
 
             <h1>
                 React-Bootstrap Boilerplate

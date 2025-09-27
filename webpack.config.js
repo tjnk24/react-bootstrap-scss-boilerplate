@@ -5,14 +5,17 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const {DefinePlugin} = require('webpack');
+const {DefinePlugin, ProvidePlugin} = require('webpack');
 
-const alias = require('./configFiles/aliases.js');
-const globals = require('./configFiles/globals.js');
+const alias = require('./config/aliases.js');
+const globals = require('./config/globals.js');
 
 const development = process.env.NODE_ENV !== 'production';
 
 const plugins = [
+    new ProvidePlugin({
+        React: 'react',
+    }),
     new DefinePlugin(globals),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
@@ -63,6 +66,7 @@ const cssLoaders = [
             sourceMap: development,
             modules: {
                 mode: 'local',
+                namedExport: false,
                 localIdentName: '[local]--[hash:base64:5]',
             },
         },

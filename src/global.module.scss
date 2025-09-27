@@ -1,5 +1,7 @@
+@use "sass:meta";
+
 :global {
-  @import 'node_modules/bootstrap/dist/css/bootstrap';
+  @include meta.load-css('../node_modules/bootstrap/dist/css/bootstrap');
 
   @font-face {
     font-family: Roboto;
