@@ -5,6 +5,7 @@ import {
     Badge,
 } from 'react-bootstrap';
 
+import checkCircleSvg from '__images/check-circle.svg';
 import logo from '__images/logo.png';
 
 import style from './style.module.scss';
@@ -23,8 +24,13 @@ const App: FC = () => {
                 alt="logo"
             />
 
+            <Image
+                src={checkCircleSvg}
+                alt="svg"
+            />
+
             <Badge>
-                sdfsdf
+                sdfsdfsdfsdf
             </Badge>
 
             <h1>
