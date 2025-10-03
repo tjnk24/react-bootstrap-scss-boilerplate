@@ -1,22 +1,23 @@
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const EslintWebpackPlugin = require('eslint-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
-const {DefinePlugin, ProvidePlugin} = require('webpack');
+import {CleanWebpackPlugin} from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import EslintWebpackPlugin from 'eslint-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'path';
+import webpack, {RuleSetRule} from 'webpack';
+import 'webpack-dev-server'; // чтобы не было ошибки типов
 
-const alias = require('./config/aliases.js');
-const globals = require('./config/globals.js');
+import alias from './config/aliases.js';
+import globals from './config/globals.js';
 
 const development = process.env.NODE_ENV !== 'production';
 
-const plugins = [
-    new ProvidePlugin({
+const plugins: webpack.Configuration['plugins'] = [
+    new webpack.ProvidePlugin({
         React: 'react',
     }),
-    new DefinePlugin(globals),
+    new webpack.DefinePlugin(globals),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
         patterns: [
@@ -56,10 +57,8 @@ if (development) {
     );
 }
 
-const cssLoaders = [
-    {
-        loader: development ? 'style-loader' : MiniCssExtractPlugin.loader,
-    },
+const cssLoaders: RuleSetRule['use'] = [
+    MiniCssExtractPlugin.loader,
     {
         loader: 'css-loader',
         options: {
@@ -79,7 +78,7 @@ const cssLoaders = [
     },
 ];
 
-module.exports = {
+export default (): webpack.Configuration => ({
     devtool: development && 'source-map',
     devServer: {
         static: {
@@ -105,14 +104,14 @@ module.exports = {
     output: {
         filename: '[name].bundle.js',
         chunkFilename: '[name].chunk.js',
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(process.cwd(), 'build'),
         publicPath: '',
         pathinfo: false,
     },
     resolve: {
         modules: [
             'node_modules',
-            path.resolve(__dirname, 'src'),
+            path.resolve(process.cwd(), 'src'),
         ],
         extensions: ['.js', '.ts', '.tsx', '.json'],
         alias,
@@ -158,4 +157,4 @@ module.exports = {
         ],
     },
     plugins,
-};
+});
